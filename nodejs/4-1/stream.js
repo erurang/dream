@@ -22,8 +22,8 @@ fs.readFile("./streamtxt.txt", (_, data) => {
 
 // buffer 형식으로 파일읽기
 const readStream = fs.createReadStream("./streamtxt.txt", {
-  // 한번에 얼마나 읽어올래?
-  highWaterMark: 8, // 기본 64kbytes
+  // 한번에 얼만큼의 데이터를 읽어올래? 1byte 가 1문자(영어)
+  highWaterMark: 64, // 기본 64kbytes
   encoding: "utf-8",
 });
 
