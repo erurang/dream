@@ -2,8 +2,11 @@
 // console.log(count);
 // console.log(getCount);
 
-// import
-const counter = require("./module_counter");
+// import export 생기기전
+// const counter = require("./module_counter");
 
-counter.increase();
-console.log(counter.getCount());
+//import export 적용후
+import { increase, getCount } from "./import.js";
+
+increase();
+console.log(getCount());

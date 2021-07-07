@@ -1,5 +1,6 @@
 let count = 0;
 
+//// import export가 생기기전
 function increase() {
   count++;
 }
