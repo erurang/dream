@@ -6,7 +6,7 @@ import cors from 'cors'
 import morgan from "morgan"
 import helmet from "helmet"
 
-import tweetsRouter from "./router/tweets"
+import tweetsRouter from "./router/tweets.js"
 
 
 const app = express()
