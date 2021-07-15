@@ -8,8 +8,8 @@ let tweets = [
     id: "1",
     text: "첫글",
     createdAt: Date.now().toString(),
-    name: "erurang",
-    username: "erurang",
+    name: "Ellie",
+    username: "ellie",
     url:
       "https://1.bp.blogspot.com/-QtT4QluFRP8/YFBDSVUQlPI/AAAAAAAA65Q/XH2c72y5GUwrozvQHbL23S-hjyC34CDbACNcBGAsYHQ/s0/03.jpg",
   },
@@ -17,7 +17,7 @@ let tweets = [
     id: "2",
     text: "두번째글",
     createdAt: Date.now().toString(),
-    name: "bob",
+    name: "Bob",
     username: "bob",
     url:
       "https://1.bp.blogspot.com/-QtT4QluFRP8/YFBDSVUQlPI/AAAAAAAA65Q/XH2c72y5GUwrozvQHbL23S-hjyC34CDbACNcBGAsYHQ/s0/03.jpg",
