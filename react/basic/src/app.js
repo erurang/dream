@@ -7,21 +7,43 @@ import ResetButton from "./components/reset";
 
 class App extends Component {
   handleIncrement = (e) => {
-    const habits = [...this.state.habits];
-    const index = habits.indexOf(e);
 
-    habits[index].count++;
-    this.setState({ habits });
+    const habits = this.state.habits.map(item => {
+      if(item.id === e.id) {
+        return {...e, count : e.count +1}
+      } 
+      return item
+
+    })
+
+    this.setState({habits})
+
+    // const habits = [...this.state.habits];
+    // const index = habits.indexOf(e);
+
+    // habits[index].count++;
+    // this.setState({ habits });
 
     console.log(e, "증가");
   };
 
   handleDecrement = (e) => {
-    const habits = [...this.state.habits];
-    const index = habits.indexOf(e);
 
-    habits[index].count--;
-    this.setState({ habits });
+
+    const habits = this.state.habits.map(item => {
+      if(item.id === e.id) {
+        return {...e, count : e.count -1}
+      } 
+      return item
+
+    })
+
+    this.setState({habits})
+    // const habits = [...this.state.habits];
+    // const index = habits.indexOf(e);
+
+    // habits[index].count--;
+    // this.setState({ habits });
 
     console.log(e, "감소");
   };
@@ -34,11 +56,19 @@ class App extends Component {
   };
 
   handleReset = () => {
-    const habits = [...this.state.habits]  
+    const habits = this.state.habits.map(e => {
+      if (e.count !== 0) {
+        return {...e, count : 0}
+      }
 
-    for (let x of habits) {
-      x.count = 0
-    }
+      return e
+    })
+
+    // const habits = [...this.state.habits]  
+
+    // for (let x of habits) {
+    //   x.count = 0
+    // }
 
     this.setState({habits})
 
@@ -59,6 +89,7 @@ class App extends Component {
   };
 
   render() {
+    console.log('app');
     return (
       <>
         <Header habits={this.state.habits} />

@@ -5,7 +5,7 @@ import Input from "./input"
 class Habits extends Component {
 
     render() {
-
+        console.log('habits');
         return (
             <>
                 <Input onAdd={this.props.onAdd}/>

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-class Habit extends Component {
+class Habit extends PureComponent {
 
     // 데이터를 전달받아서 표현만할뿐 컴포넌트 자체에서 상태를 가지고있는것은 좋지못함
     // 상태를 끌어올려줘야함
@@ -12,7 +12,7 @@ class Habit extends Component {
         // props를 통해 받아온 habit들은 this.props에 저장이됨
         // console.log(this.props);
         const { name, count } = this.props.habit
-
+        console.log(name);
 
         return <li className="habit">
             <span className="habit-name">{name}</span>
