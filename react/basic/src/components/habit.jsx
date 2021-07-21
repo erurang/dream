@@ -11,15 +11,18 @@ class Habit extends Component {
     render() {
         // props를 통해 받아온 habit들은 this.props에 저장이됨
         // console.log(this.props);
-        const {name,count} = this.props.habit
-        
+        const { name, count } = this.props.habit
+
 
         return <li className="habit">
             <span className="habit-name">{name}</span>
             <span className="habit-count">{count}</span>
-            <button className="habit-button habit-increase" onClick={() => this.props.handleIncrement(this.props.habit)}>+</button>
-            <button className="habit-button habit-decrease" onClick={() => this.props.handleDecrement(this.props.habit)}>-</button>
-            <button className="habit-button habit-delete" onClick={() => this.props.handleDelete(this.props.habit)}> x</button>
+            <button className="habit-button habit-increase"
+                onClick={() => this.props.handleIncrement(this.props.habit)}>+</button>
+            <button className="habit-button habit-decrease"
+                onClick={() => this.props.handleDecrement(this.props.habit)}>-</button>
+            <button className="habit-button habit-delete"
+                onClick={() => this.props.handleDelete(this.props.habit)}> x</button>
         </li>
     }
 }

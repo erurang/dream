@@ -4,14 +4,31 @@ import Habit from "./habit"
 class Habits extends Component {
 
     handleIncrement = e => {
+        const habits = [...this.state.habits]
+        const index = habits.indexOf(e)
+        
+        habits[index].count++
+        this.setState({ habits })
+
         console.log(e, '증가');
     }
 
     handleDecrement = e => {
+
+        const habits = [...this.state.habits]
+        const index = habits.indexOf(e)
+        
+        habits[index].count--
+        this.setState({ habits })
+
         console.log(e, '감소');
     }
 
     handleDelete = e => {
+
+        const habits = this.state.habits.filter(n => n.id !== e.id)
+        this.setState({habits})
+
         console.log(e, '삭제');
     }
 
