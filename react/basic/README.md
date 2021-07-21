@@ -53,6 +53,10 @@ onSubmit 이벤트가 생기면 페이지가 리프레시됨, 막기위해서 pr
 
 js에서는 querySelector를 이용하여 input의 value를 받아왔지만 React에서는 Ref를 사용
 
+### 라이프사이클
+
+<img width="1896" alt="스크린샷 2021-07-22 오전 12 43 32" src="https://user-images.githubusercontent.com/56789064/126518397-59a9c816-78af-4d2e-b2be-a099488b0730.png">
+
 ### 성능 관리
 
 리액트에서 컴포넌트 변경이 일어나 모든 컴포넌트가 리렌더가 일어날때
@@ -65,7 +69,9 @@ js에서는 querySelector를 이용하여 input의 value를 받아왔지만 Reac
 
 클래스 컴포넌트에서는 PureComponent / 리액트 훅에서는 memo가 존재한다.
 
-이번 프로젝트의 예로 성능개선을 해보자. PureComponent를 사용할것이다.
+이번 프로젝트의 예로 성능개선을 해보자. 
+
+## PureComponent (클래스형)
 
 <img width="1012" alt="스크린샷 2021-07-22 오전 12 05 17" src="https://user-images.githubusercontent.com/56789064/126512038-16ec4afd-8af7-447f-a0a9-eaa795f3fc4b.png">
 
@@ -96,3 +102,63 @@ shallow 하게 얕은 비교를 하는데, 이것은 {} {} 객체의 주소가 �
 오브젝트의 내부값까지는 변경되는걸 확인하지않는다는뜻이다. 그래서 리액트 자체에서 불변성을 지켜줘야
 
 리액트는 변경점을 알아채고 컴포넌트를 업데이트하게 되는것이다. (상태변경을할때 spreadOperater ..를 쓰는이유임.)
+
+## Memo (리액트훅)
+
+```
+import React, { PureComponent } from 'react';
+
+class Input extends PureComponent {
+
+    inputRef = React.createRef()
+
+    onSubmit = e => {
+        e.preventDefault()
+        console.log(this.inputRef.current.value)
+        
+        const name = this.inputRef.current.value
+        name && this.props.onAdd(name)
+    }
+    
+    render() {
+        console.log('input');
+        return (
+            <form onSubmit={this.onSubmit}>
+                <input type="text" placeholder="Habit" ref={this.inputRef}/>
+                <button type="submit">추가</button>
+            </form>
+        )
+    }
+}
+
+export default Input;
+```
+
+memo는 아래처럼 사용가능하다.
+
+```
+import React, { memo } from 'react';
+
+const Input = memo((props) => {
+
+    const inputRef = React.createRef()
+
+    const onSubmit = e => {
+        e.preventDefault()
+        console.log(inputRef.current.value)
+        
+        const name = inputRef.current.value
+        name && props.onAdd(name)
+    }
+
+    console.log('input');
+    return (
+        <form onSubmit={onSubmit}>
+            <input type="text" placeholder="Habit" ref={inputRef}/>
+            <button type="submit">추가</button>
+        </form>
+    )
+};)
+
+export default Input;
+```
