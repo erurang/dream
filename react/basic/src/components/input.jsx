@@ -19,7 +19,7 @@ const Input = memo((props) => {
             <button type="submit">추가</button>
         </form>
     )
-};)
+});
 
 export default Input;
 
