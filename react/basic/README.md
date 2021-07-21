@@ -13,3 +13,35 @@ yarn create react-app
 하위 컴포넌트에서 OnClick이 일어나면 우리는 상위컴포넌트에서 내려준 함수를 이용해 `함수(인자)` 를 넘기고
 
 상위 컴포넌트에선 하위컴포넌트에서 전달된 값으로 상태 처리를 한다.
+
+
+### 인풋
+
+```
+class Input extends Component {
+
+    inputRef = React.createRef()
+
+    onSubmit = e => {
+        e.preventDefault()
+        console.log(this.inputRef.current.value)
+
+        const name = this.inputRef.current.value
+        name && this.props.onAdd(name)
+    }
+    
+    render() {
+        return (
+            <form onSubmit={this.onSubmit}>
+                <input type="text" placeholder="Habit" ref={this.inputRef}/>
+                <button type="submit">추가</button>
+            </form>
+        )
+    }
+}
+```
+
+onSubmit 이벤트가 생기면 페이지가 리프레시됨, 막기위해서 preventDefault()사용
+
+js에서는 querySelector를 이용하여 input의 value를 받아왔지만 React에서는 Ref를 사용
+
