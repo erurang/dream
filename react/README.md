@@ -2,6 +2,6 @@
 
 ```
 +-- basic - 리액트 기본을 배우는 ToDo
-    +-- public - 정적파일 보관
-    +-- src - 동적파일 보관
+
++-- youtube - clone 프로젝트
 ```
