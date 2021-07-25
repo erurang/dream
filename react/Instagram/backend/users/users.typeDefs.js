@@ -14,6 +14,8 @@ export default gql`
       email: String!
       password: String!
     ): User
+
+    login(username:String!,password:String!): LoginResult!
   }
 
   type User {
@@ -24,5 +26,11 @@ export default gql`
     email: String!
     createdAt: String!
     updatedAt: String!
+  }
+
+  type LoginResult {
+      ok: Boolean!
+      error : String
+      token : String
   }
 `;
