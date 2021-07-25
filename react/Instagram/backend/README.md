@@ -1,27 +1,29 @@
-# Instagram Clone Project
+# Instaclone
 
-Instaclone Backend
-
-```
-npm install apollo-server graphql
-```
-
-Prisma
-
-```
-npm install prisma --save-dev 
-npx prisma init
-CREATE DATABASE instaclone
-pgadmin4
-postgresql app 
-```
-
-Prisma는 commonjs라서 Type:moudle 상태에서는 사용이 불가함.. 바벨설치
-
-Babel
+Instaclone Backend.
 
 ```
 npm i --save-dev @babel/core
 npm i @babel/preset-env --save-dev
 npm i @babel/node --save-dev
+npm install apollo-server graphql
+npm install prisma --save-dev 
 ```
+
+Prisma
+```
+pgadmin4
+postgresql app
+CREATE DATABASE instaclone
+npx prisma init
+```
+
+## User:
+
+- [ ] Create Account
+- [ ] See Profile
+- [ ] Login
+- [ ] Edit Profile
+- [ ] Follow User
+- [ ] Unfollow User
+- [ ] Change Avatar (Image Upload)
