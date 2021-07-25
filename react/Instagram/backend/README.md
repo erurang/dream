@@ -21,7 +21,7 @@ npx prisma init
 ## User:
 
 - [x] Create Account
-- [ ] See Profile
+- [x] See Profile
 - [ ] Login
 - [ ] Edit Profile
 - [ ] Follow User
