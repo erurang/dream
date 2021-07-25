@@ -7,7 +7,8 @@ export default {
       _,
       { firstName, lastName, username, email, password }
     ) => {
-      // check if username or email are already on DB.
+      try {
+        // check if username or email are already on DB.
 
       const existingUser = await client.user.findFirst({
         where: {
@@ -22,6 +23,9 @@ export default {
         },
       });
       // console.log(existingUser); // 존재하지않으면 null
+      if (existingUser) {
+          throw new Error('This username or email is already taken')
+      }
 
       // think about sign up / sign in (password)
       // Create account:
@@ -47,6 +51,9 @@ export default {
       // if they are not / hash password
 
       // save and return the user
+      }catch(error) {
+          return error
+      }
     },
   },
 };
