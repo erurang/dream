@@ -1,11 +1,23 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// datasource가 prisma에게 데이터베이스의 주소와 종류에 대해 알려주는 역할
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
+// 어떤 방식으로 데이터베이스와 상호작용하는가
 generator client {
   provider = "prisma-client-js"
+}
+
+// npx prisma migrate dev
+model Movie {
+  id Int @id @default(autoincrement())
+  title String 
+  year Int
+  genre String?
+  createdAt DateTime @default(now())
+  updatdAt DateTime @updatedAt
 }
