@@ -1,7 +1,6 @@
 import { gql } from "apollo-server";
 
 export default gql`
-
   type Query {
     seeProfile(username: String): User
   }
@@ -15,7 +14,8 @@ export default gql`
       password: String!
     ): User
 
-    login(username:String!,password:String!): LoginResult!
+    login(username: String!, password: String!): LoginResult!
+
   }
 
   type User {
@@ -29,8 +29,9 @@ export default gql`
   }
 
   type LoginResult {
-      ok: Boolean!
-      error : String
-      token : String
+    ok: Boolean!
+    error: String
+    token: String
   }
+
 `;
