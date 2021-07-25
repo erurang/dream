@@ -14,10 +14,10 @@ generator client {
 
 // npx prisma migrate dev
 model Movie {
-  id Int @id @default(autoincrement())
-  title String 
-  year Int
-  genre String?
+  id        Int      @id @default(autoincrement())
+  title     String
+  year      Int
+  genre     String?
   createdAt DateTime @default(now())
-  updatdAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt
 }
