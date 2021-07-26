@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import client from "../../client";
 import { protectedResolver } from "../users.utils";
+import fs from "fs"
 
 export default {
   Mutation: {
@@ -27,9 +28,12 @@ export default {
        */
 
        //1 
+      const {filename,createReadStream} = await avatar
+      const readStream = createReadStream();
+      // path =>  console.log(process.cwd())
+      const writestream = fs.createWriteStream(process.cwd() + "/uploads/"+filename)
+      readStream.pipe(writestream)
 
-
-       
       // console.log("에디트",loggedInUser);
       // 이렇게 하나하나 resolver마다 import해서 적어주는 방식도있지만.. Context로 전역처리를하면 더 편하다
       // 로그인이 안됬을경우를 판별할때 아래와 2가지 경우가 있는데..
