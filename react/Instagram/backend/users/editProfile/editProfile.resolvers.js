@@ -28,11 +28,18 @@ export default {
        */
 
        //1 
-      const {filename,createReadStream} = await avatar
-      const readStream = createReadStream();
-      // path =>  console.log(process.cwd())
-      const writestream = fs.createWriteStream(process.cwd() + "/uploads/"+filename)
-      readStream.pipe(writestream)
+      let avatarUrl = null
+       if (avatar) {
+
+         const {filename,createReadStream} = await avatar
+         const newFilename = `${loggedInUser.id}-${Date.now()}-${filename}`
+         const readStream = createReadStream();
+         // path =>  console.log(process.cwd())
+         const writestream = fs.createWriteStream(process.cwd() + "/uploads/"+ newFilename)
+         readStream.pipe(writestream)
+
+         avatarUrl = `http://localhost:4000/static/${newFilename}`
+       }
 
       // console.log("에디트",loggedInUser);
       // 이렇게 하나하나 resolver마다 import해서 적어주는 방식도있지만.. Context로 전역처리를하면 더 편하다
@@ -61,6 +68,7 @@ export default {
           username,
           email,
           bio,
+          ...(avatarUrl && {avatar : avatarUrl}),
           ...(uglyPassword && { password: uglyPassword }),
         },
       });

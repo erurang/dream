@@ -22,7 +22,7 @@ const app = express();
 
 app.use(morgan('tiny') )
 
-app.use(express.static("uploads"))
+app.use('/static',express.static("uploads"))
 
 // 아폴로서버에 express서버와 함께 작동하도록 넘김
 apollo.applyMiddleware({app})
