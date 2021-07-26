@@ -6,7 +6,7 @@ export default {
   Mutation: {
     editProfile: protectedResolver(async (
       _,
-      { firstName, lastName, username, email, password },
+      { firstName, lastName, username, email, password ,bio},
       { loggedInUser, protectResolver }
     ) => {
       // console.log("에디트",loggedInUser);

@@ -44,6 +44,7 @@ export default {
             email,
             firstName,
             lastName,
+            bio,
             password: uglyPassword,
           },
         });
