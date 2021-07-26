@@ -10,6 +10,6 @@ export default gql`
     createdAt: String!
     updatedAt: String!
     bio : String
-    avata : String
+    avatar : Upload
   }
 `;

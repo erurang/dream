@@ -4,6 +4,9 @@ import { ApolloServer } from "apollo-server";
 import { typeDefs, resolvers } from "./schema";
 import { getUser, protectResolver } from "./users/users.utils";
 
+
+const PORT = process.env.PORT;
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -13,9 +16,6 @@ const server = new ApolloServer({
     return { loggedInUser: await getUser(req.headers.token), protectResolver };
   },
 });
-
-const PORT = process.env.PORT;
-
 server
   .listen(PORT)
   .then(() => console.log(`server is running ong http:/localhsot:${PORT}`));

@@ -6,9 +6,30 @@ export default {
   Mutation: {
     editProfile: protectedResolver(async (
       _,
-      { firstName, lastName, username, email, password ,bio},
-      { loggedInUser, protectResolver }
+      { firstName, lastName, username, email, password ,bio,avatar},
+      { loggedInUser }
     ) => {
+
+      /* 이런식의 형식이 옴(파일업로드시)
+      console.log(avatar);
+      Promise {
+      {
+        filename: '1615549543238.png',
+        mimetype: 'image/png',
+        encoding: '7bit',
+        createReadStream: [Function: createReadStream]
+      }
+    }
+    1. 지금은 서버에 파일을 저장하지만,
+    2. 아마존 서버에 파일을 올리고 아마존 서버에서 url을 받아서 client.user.update에서 avatar url을 string으로 저장하는 방식으로 구현할것임.
+
+    일단 1번방법부터 적용
+       */
+
+       //1 
+
+
+       
       // console.log("에디트",loggedInUser);
       // 이렇게 하나하나 resolver마다 import해서 적어주는 방식도있지만.. Context로 전역처리를하면 더 편하다
       // 로그인이 안됬을경우를 판별할때 아래와 2가지 경우가 있는데..
@@ -35,6 +56,7 @@ export default {
           lastName,
           username,
           email,
+          bio,
           ...(uglyPassword && { password: uglyPassword }),
         },
       });
