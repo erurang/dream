@@ -11,11 +11,15 @@ export const getUser = async (token) => {
     const { id } = jwt.verify(token, process.env.SECRET_KEY); // console.log(verifiedToken);
 
     const user = await client.user.findUnique({ where: { id } });
-    
 
     if (user) return user;
     else return null;
   } catch {
     return null;
   }
+};
+
+export const protectResolver = (user) => {
+  // if (!user) throw new Error("You need to login")
+  if (!user) return { ok: false, error: "you need to login" };
 };
