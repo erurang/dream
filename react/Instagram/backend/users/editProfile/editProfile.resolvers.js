@@ -1,12 +1,16 @@
 import bcrypt from "bcrypt";
 import client from "../../client";
+import jwt from "jsonwebtoken";
 
 export default {
   Mutation: {
     editProfile: async (
       _,
-      { firstName, lastName, username, email, password }
+      { firstName, lastName, username, email, password, token }
     ) => {
+      // jwt.verify에서 콜백으로 우리가 login.resolvers.js 에서 암호화한 오브젝트 {}를 넘겨줌
+      const { id } = await jwt.verify(token, process.env.SECRET_KEY); // console.log(verifiedToken);
+
       let uglyPassword = null;
 
       if (password) {
@@ -15,22 +19,19 @@ export default {
 
       const updatedUser = await client.user.update({
         where: {
-          // after edit
-          id: 1,
+          id,
         },
         data: {
           firstName,
           lastName,
           username,
           email,
-          ...(uglyPassword && { password : uglyPassword }),
+          ...(uglyPassword && { password: uglyPassword }),
         },
       });
 
-
-      if(updatedUser.id) return {ok:true}
-      else return {ok:false, error:"Could not update profile"}
-      
+      if (updatedUser.id) return { ok: true };
+      else return { ok: false, error: "Could not update profile" };
     },
   },
 };
