@@ -6,10 +6,13 @@ export default {
   Mutation: {
     editProfile: async (
       _,
-      { firstName, lastName, username, email, password, token }
+      { firstName, lastName, username, email, password } , {token}
     ) => {
+      
       // jwt.verify에서 콜백으로 우리가 login.resolvers.js 에서 암호화한 오브젝트 {}를 넘겨줌
       const { id } = await jwt.verify(token, process.env.SECRET_KEY); // console.log(verifiedToken);
+      console.log(token);
+
 
       let uglyPassword = null;
 
