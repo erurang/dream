@@ -1,9 +1,10 @@
 import bcrypt from "bcrypt";
 import client from "../../client";
+import { protectedResolver } from "../users.utils";
 
 export default {
   Mutation: {
-    editProfile: async (
+    editProfile: protectedResolver(async (
       _,
       { firstName, lastName, username, email, password },
       { loggedInUser, protectResolver }
@@ -15,7 +16,6 @@ export default {
       // 1 => new Error로 에러를 터트려서 3번줄 아래로 안내려가게 하는법.
       // if (!loggedInUser) throw new Error("You need to login")
       // 이 방법일때는 아래의 3번에서 id를 hash하고.. 등등의 일을 하지않아서 찾지않지만
-      protectResolver(loggedInUser);
 
       // 2 => 그냥 오브젝트를 리턴해서 3번이 실행되게 만드는 것
       // 위 protectResolver가 if (!loggedInUser) return { ok: false, error: "you need to login" };
@@ -41,6 +41,6 @@ export default {
 
       if (updatedUser.id) return { ok: true };
       else return { ok: false, error: "Could not update profile" };
-    },
+    }),
   },
 };
