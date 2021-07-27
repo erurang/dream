@@ -28,8 +28,8 @@ npx prisma init
 - [x] Unfollow User
 - [x] Change Avatar (Image Upload)
 - [ ] Search Users
-- [ ] See Followers / pagination
-- [ ] See Following / pagination
+- [x] See Followers / pagination
+- [x] See Following / cursor pagination
 
 ## Photos
 
