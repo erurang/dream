@@ -48,15 +48,14 @@ export default {
           },
         });
 
-        return { ok: true}
+        return { ok: true };
 
         // if they are not / hash password
 
         // save and return the user
       } catch (error) {
-        return error;
+        return { ok: false, error: "Cant create account" };
       }
     },
-    
   },
 };
