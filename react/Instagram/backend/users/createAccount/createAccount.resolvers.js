@@ -38,16 +38,17 @@ export default {
         // console.log(uglyPassword);
 
         // if you want to check about making account, npx prisma studio
-        return client.user.create({
+        await client.user.create({
           data: {
             username,
             email,
             firstName,
             lastName,
-            bio,
             password: uglyPassword,
           },
         });
+
+        return { ok: true}
 
         // if they are not / hash password
 
