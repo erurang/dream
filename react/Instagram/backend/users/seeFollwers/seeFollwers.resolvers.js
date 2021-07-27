@@ -28,7 +28,12 @@ export default {
           skip: (page - 1) * 5,
         });
 
-      return { ok: true, followers };
+        // 
+      const totalFollowers = await client.user.count({
+        where: { following: { some: { username } } },
+      });
+
+      return { ok: true, followers, totalPages: Math.ceil(totalFollowers/5)};
     },
   },
 };
