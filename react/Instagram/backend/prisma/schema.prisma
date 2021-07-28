@@ -21,6 +21,38 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  followers User[] @relation("FollowRelation", references: [id])
-  following User[] @relation("FollowRelation", references: [id])
+  followers User[]   @relation("FollowRelation", references: [id])
+  following User[]   @relation("FollowRelation", references: [id])
+  // 한 유저는 여러개의 사진을 가질수있으니
+  photos    Photo[]
+}
+
+model Photo {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  file      String
+  caption   String?
+  // 사진은 유저에 의해 올라오니깐 User타입
+  // 이 user의 User는 User모델의 photos와의 관계를 뜻함.
+  // db에는 이 영역이 저장되지않지만 Prisma는 이 영역을 보고 userId를 저장함.. ?
+  // user는 User라는 모델과 @realtion 관계가있고, fields는 userId라고 불리는 관계를 가지고있다. userId는 User모델의 (reference: [id]) id를 가지고있음
+  // 즉 photo라는 모델안에 userId 라는 필드는 User모델의 id의 값을 지니게했다는뜻
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+
+  // 사진도 여러개의 해쉬태그를 가졌으면 좋겠다.
+  hastags Hashtag[]
+}
+
+model Hashtag {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  hashtag   String
+
+  // 해쉬태그 하나가 여러개의 사진을 갖도록 하면 좋을거같다.
+  photos Photo[]
+  // photos  Photo[] @relation(fields: [photoId], references : [id])
+  // photoId Int
 }
