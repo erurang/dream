@@ -21,7 +21,7 @@ export default gql`
     # 그러면 다음으로 이 타입의 resolver가 정의되어있는지 확인한다.
     totalFollowing : Int!
     totalFollowers: Int!
+    isMe : Boolean!
     # isFollowing : Boolean!
-    # isMe : Boolean!
   }
 `;

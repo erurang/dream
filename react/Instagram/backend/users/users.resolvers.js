@@ -36,5 +36,10 @@ export default {
     totalFollowers: ({ id }) => {
       return client.user.count({ where: { following: { some: { id } } } });
     },
+
+    isMe: ({ id }, args, { loggedInUser }) => {
+      if (id === loggedInUser?.id) return true
+      else return false
+    },
   },
 };
