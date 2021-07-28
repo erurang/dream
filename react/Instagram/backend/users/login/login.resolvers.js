@@ -22,7 +22,7 @@ export default {
             }
         }
         // 1 && 2 => send token user // npm i jsonwebtoken
-        const token = await jwt.sign({id : user.id}, process.env.SECRET_KEY)
+        const token = jwt.sign({id : user.id}, process.env.SECRET_KEY)
         
         return {
             ok:true,
