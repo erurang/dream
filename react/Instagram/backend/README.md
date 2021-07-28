@@ -27,7 +27,7 @@ npx prisma init
 - [x] Follow User
 - [x] Unfollow User
 - [x] Change Avatar (Image Upload)
-- [ ] Search Users
+- [x] Search Users
 - [x] See Followers / pagination
 - [x] See Following / cursor pagination
 
