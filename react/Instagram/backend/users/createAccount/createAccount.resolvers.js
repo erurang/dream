@@ -35,7 +35,7 @@ export default {
         // to hashing passwrod => npm i bcrypt
 
         const uglyPassword = await bcrypt.hash(password, 10); // save this on db
-        // console.log(uglyPassword);
+        console.log(uglyPassword);
 
         // if you want to check about making account, npx prisma studio
         await client.user.create({

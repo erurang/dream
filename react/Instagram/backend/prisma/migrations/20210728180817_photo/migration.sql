@@ -27,6 +27,9 @@ CREATE TABLE "_HashtagToPhoto" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Hashtag.hashtag_unique" ON "Hashtag"("hashtag");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "_HashtagToPhoto_AB_unique" ON "_HashtagToPhoto"("A", "B");
 
 -- CreateIndex

@@ -42,14 +42,14 @@ model Photo {
   userId    Int
 
   // 사진도 여러개의 해쉬태그를 가졌으면 좋겠다.
-  hastags Hashtag[]
+  hashtags Hashtag[]
 }
 
 model Hashtag {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  hashtag   String
+  hashtag   String   @unique
 
   // 해쉬태그 하나가 여러개의 사진을 갖도록 하면 좋을거같다.
   photos Photo[]
