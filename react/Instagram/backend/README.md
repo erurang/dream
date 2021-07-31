@@ -39,8 +39,8 @@ npx prisma init
 - [ ] Like / Unlike Photo
 - [ ] See Photo Likes
 - [ ] See Feed
-- [ ] Search Photos
-- [ ] See Hashtags
+- [x] Search Photos
+- [x] See Hashtags
 
 ## Comments
 
