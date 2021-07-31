@@ -25,7 +25,7 @@ model User {
   following User[]   @relation("FollowRelation", references: [id])
   // 한 유저는 여러개의 사진을 가질수있으니
   photos    Photo[]
-  Like      Like[]
+  likes     Like[]
 }
 
 model Photo {
@@ -44,7 +44,7 @@ model Photo {
 
   // 사진도 여러개의 해쉬태그를 가졌으면 좋겠다.
   hashtags Hashtag[]
-  Like     Like[]
+  likes    Like[]
 }
 
 model Hashtag {
@@ -63,8 +63,17 @@ model Like {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  // 좋아요를 누를때 누른 사진과 누른 사용자 2명의 정보가 필요함
   photo     Photo    @relation(fields: [photoId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
   photoId   Int
   userId    Int
+  // compound unique
+  // 여러개 유니크를 지정하게해줌
+  // photoId   Int @unique
+  // userId    Int @unique
+  // 이렇게 사용해도되긴함
+  // 왜 유니크로 사용해야하나?
+
+  @@unique([photoId, userId])
 }
