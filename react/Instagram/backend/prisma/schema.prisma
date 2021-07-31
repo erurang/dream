@@ -25,6 +25,7 @@ model User {
   following User[]   @relation("FollowRelation", references: [id])
   // 한 유저는 여러개의 사진을 가질수있으니
   photos    Photo[]
+  Like      Like[]
 }
 
 model Photo {
@@ -43,6 +44,7 @@ model Photo {
 
   // 사진도 여러개의 해쉬태그를 가졌으면 좋겠다.
   hashtags Hashtag[]
+  Like     Like[]
 }
 
 model Hashtag {
@@ -55,4 +57,14 @@ model Hashtag {
   photos Photo[]
   // photos  Photo[] @relation(fields: [photoId], references : [id])
   // photoId Int
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  photo     Photo    @relation(fields: [photoId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+  photoId   Int
+  userId    Int
 }
