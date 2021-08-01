@@ -57,4 +57,11 @@ npx prisma init
 
 ## Extras
 
-- [ ] Amazon S3 Image Upload 
+- [x] Amazon S3 Image Upload 
+
+## DMS
+
+- [x] See Room
+- [ ] Send Message (Create Room)
+- [ ] See Rooms
+- [ ] Realtime Messages

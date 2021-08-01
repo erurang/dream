@@ -109,7 +109,7 @@ model Room {
   updatedAt DateTime  @updatedAt
   //
   users     User[]
-  message   Message[]
+  messages  Message[]
 }
 
 // 메세지는 단순 스트링이고 한 유저가 말할수있다.
