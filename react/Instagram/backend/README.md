@@ -53,3 +53,8 @@ npx prisma init
 ## Refactor
 
 - [x] shared.typeDefs
+- [x] protectedResolver edit
+
+## Extras
+
+- [ ] Amazon S3 Image Upload 
