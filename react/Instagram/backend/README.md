@@ -41,9 +41,11 @@ npx prisma init
 - [x] See Feed
 - [x] Search Photos
 - [x] See Hashtags
+- [ ] See Photo Comments
+- [ ] is Me? (delete Photo)
 
 ## Comments
 
-- [ ] Comment on Photo
+- [x] Comment on Photo
 - [ ] Edit Comment
 - [ ] Delete Comment

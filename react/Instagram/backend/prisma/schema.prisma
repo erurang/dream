@@ -11,21 +11,22 @@ generator client {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   firstName String
   lastName  String?
-  username  String   @unique
-  email     String   @unique
+  username  String    @unique
+  email     String    @unique
   bio       String?
   avatar    String?
   password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  followers User[]   @relation("FollowRelation", references: [id])
-  following User[]   @relation("FollowRelation", references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  followers User[]    @relation("FollowRelation", references: [id])
+  following User[]    @relation("FollowRelation", references: [id])
   // 한 유저는 여러개의 사진을 가질수있으니
   photos    Photo[]
   likes     Like[]
+  comments  Comment[]
 }
 
 model Photo {
@@ -45,6 +46,7 @@ model Photo {
   // 사진도 여러개의 해쉬태그를 가졌으면 좋겠다.
   hashtags Hashtag[]
   likes    Like[]
+  comments Comment[]
 }
 
 model Hashtag {
@@ -76,4 +78,15 @@ model Like {
   // 왜 유니크로 사용해야하나?
 
   @@unique([photoId, userId])
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  comment   String
+  photo     Photo    @relation(fields: [photoId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+  photoId   Int
+  userId    Int
 }

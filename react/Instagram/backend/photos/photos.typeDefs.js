@@ -11,6 +11,7 @@ export default gql`
     hashtags: [Hashtag]
     # computed
     likes: Int!
+    isMe: Boolean!
   }
 
   type Hashtag {
