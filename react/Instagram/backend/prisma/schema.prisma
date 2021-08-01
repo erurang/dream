@@ -27,6 +27,14 @@ model User {
   photos    Photo[]
   likes     Like[]
   comments  Comment[]
+
+  // room 모델에서 user User[] 를 하게되면 오토컴플릿이 되는데
+  // 이것은 user한명이 대화방 하나를 가질수밖에 없으니.. 이러면 안댐
+  // Room      Room?     @relation(fields: [roomId], references: [id])
+  // roomId    Int?
+
+  rooms   Room[]
+  message Message[]
 }
 
 model Photo {
@@ -89,4 +97,33 @@ model Comment {
   user      User     @relation(fields: [userId], references: [id])
   photoId   Int
   userId    Int
+}
+
+// dm 모델만들기
+// 방이 있어야 대화를 할수있다 => 룸
+// 룸안에는 여러명의 사람과 여러 메세지들이 있다.
+
+model Room {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  //
+  users     User[]
+  message   Message[]
+}
+
+// 메세지는 단순 스트링이고 한 유저가 말할수있다.
+// 어떤 방에 보낼건지 정해야한다.
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // 메세지는 사람이 보내니까
+  message   String
+  user      User     @relation(fields: [userId], references: [id])
+  // 어떤방에 보낼거야? 방도필요함
+  room      Room     @relation(fields: [roomId], references: [id])
+  userId    Int
+  roomId    Int
 }
