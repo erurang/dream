@@ -6,7 +6,7 @@ export default gql`
     user: User!
     photo: Photo!
     comment: String!
-    isMe: String!
+    isMe: Boolean!
     createdAt: String!
     updatedAt: String!
   }

@@ -12,6 +12,7 @@ export default gql`
     # computed
     likes: Int!
     isMe: Boolean!
+    comments: Int!
   }
 
   type Hashtag {
