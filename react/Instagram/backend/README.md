@@ -62,6 +62,7 @@ npx prisma init
 ## DMS
 
 - [x] See Room
-- [ ] Send Message (Create Room)
+- [x] Send Message (Create Room)
 - [ ] See Rooms
+- [ ] See Message
 - [ ] Realtime Messages

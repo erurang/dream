@@ -5,8 +5,9 @@ export default gql`
     id: Int!
     createdAt: String!
     updatedAt: String!
-    user: [User]
+    users: [User]
     messages: [Message]
+    unreadCount: Int!
   }
   type Message {
     id: Int!
@@ -15,5 +16,6 @@ export default gql`
     message: String!
     createdAt: String!
     updatedAt: String!
+    read: Boolean!
   }
 `;
