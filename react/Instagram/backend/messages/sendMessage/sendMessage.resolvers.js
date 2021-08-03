@@ -1,4 +1,6 @@
 import client from "../../client";
+import { NEW_MESSAGE } from "../../constants";
+import pubsub from "../../pubsub";
 import { protectedResolver } from "../../users/users.utils";
 
 export default {
@@ -56,7 +58,7 @@ export default {
           });
           if (!room) return { ok: false, error: "room not found" };
         }
-        await client.message.create({
+        const createdMessage = await client.message.create({
           data: {
             message,
             room: {
@@ -71,6 +73,19 @@ export default {
             },
           },
         });
+
+        // 이렇게 보내면
+        /*
+        {
+          "data": {
+            "roomUpdates": null
+          }
+        }
+        이런오류가 맞이함 뒤의 인자에는 우리가 타입데프에서 정의한 이름으로. {형식 : {보낼것}} 이렇ㄱ ㅔ처리해야함
+         */
+        // {{createMessage}} => { createMessage}
+        pubsub.publish(NEW_MESSAGE, { roomUpdates: { ...createdMessage } });
+
         return {
           ok: true,
         };
