@@ -6,6 +6,9 @@ import { getUser } from "./users/users.utils";
 import express from "express";
 import morgan from "morgan";
 import { graphqlUploadExpress } from "graphql-upload";
+import pubsub from "./pubsub";
+
+console.log(pubsub);
 
 const PORT = process.env.PORT;
 
