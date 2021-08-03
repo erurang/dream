@@ -13,9 +13,17 @@ export default {
 
       // 우리가 방이 존재하는지? 안존재하는지 먼저 거르기위해서 이렇게만듬
       subscribe: async (root, args, context, info) => {
-        const room = await client.room.findUnique({
+        // server에 설정후
+        // console.log("ws auth :", context);
+
+        const room = await client.room.findFirst({
           where: {
             id: args.id,
+            users: {
+              some: {
+                id: context.loggedInUser.id,
+              },
+            },
           },
           select: {
             id: true,
