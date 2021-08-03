@@ -32,9 +32,19 @@ export function protectedResolver(ourResolver) {
     // 만약 로그인 안한사람이 seeFeed를 하면 어떻게되나..? 그럼 => 뻑남 왜냐? 우리는 [Photo]를 반환한다고 말했기 떄문..
     // 그래서 여기서 한번더 조정해준다
 
-    const query = info.operation.operation === "query";
-    if (query) return null;
-    if (!context.loggedInUser) return { ok: false, error: "Please login" };
+    if (!context.loggedInUser) {
+      const query = info.operation.operation === "query";
+      if (query) return null;
+      else
+        return {
+          ok: false,
+          error: "Please log in to perform this action.",
+        };
+    }
+
+    // const query = info.operation.operation === "query";
+    // if (!query) return null;
+    // if (!context.loggedInUser) return { ok: false, error: "Please login" };
     return ourResolver(root, args, context, info);
   };
 }

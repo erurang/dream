@@ -126,5 +126,6 @@ model Message {
   room      Room     @relation(fields: [roomId], references: [id])
   userId    Int
   roomId    Int
+  // 읽었는지 안읽었는지..
   read      Boolean  @default(false)
 }
