@@ -7,6 +7,8 @@ npm install --save @fortawesome/free-solid-svg-icons
 npm install --save @fortawesome/react-fontawesome
 npm install --save @fortawesome/free-brands-svg-icons
 npm install --save @fortawesome/free-regular-svg-icons
+npm install styled-components
+npm i styled-reset
 ```
 
 - [x] Router
