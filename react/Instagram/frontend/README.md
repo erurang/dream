@@ -14,5 +14,5 @@ npm i styled-reset
 - [x] Router
 - [x] Auth
 - [x] Arch.
-- [ ] Styled
+- [x] Styled
 - [ ] Log In
