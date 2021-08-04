@@ -1,18 +1,22 @@
+import { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./screens/Home";
 import Login from "./screens/Login";
 import NotFound from "./screens/NotFound";
 
 function App() {
-  // 로그인을 흉내내기위한 임시변수
-  const isLoggedIn = true;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <div className="App">
       <Router>
         <Switch>
           <Route path="/" exact>
-            {isLoggedIn ? <Home /> : <Login />}
+            {isLoggedIn ? (
+              <Home setIsLoggedIn={setIsLoggedIn} />
+            ) : (
+              <Login setIsLoggedIn={setIsLoggedIn} />
+            )}
           </Route>
           <Route>
             <NotFound />
