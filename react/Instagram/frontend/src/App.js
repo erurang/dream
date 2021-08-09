@@ -1,6 +1,6 @@
-import { useReactiveVar } from "@apollo/client";
+import { ApolloProvider, useReactiveVar } from "@apollo/client";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { darkModeVar, isLoggedInVar } from "./apollo";
+import { client, darkModeVar, isLoggedInVar } from "./apollo";
 import Home from "./screens/Home";
 import Login from "./screens/Login";
 import NotFound from "./screens/NotFound";
@@ -15,27 +15,29 @@ function App() {
   const darkMode = useReactiveVar(darkModeVar);
 
   return (
-    <HelmetProvider>
-      <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-        <GlobalStyles />
-        <Router>
-          <Switch>
-            <Route path={routes.home} exact>
-              {isLoggedIn ? <Home /> : <Login />}
-            </Route>
-            {/* 만약 로그인된 유저가 가입페이지를 갈수도있으니.. */}
-            {!isLoggedIn ? (
-              <Route path={routes.signUp}>
-                <SignUp />
+    <ApolloProvider client={client}>
+      <HelmetProvider>
+        <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+          <GlobalStyles />
+          <Router>
+            <Switch>
+              <Route path={routes.home} exact>
+                {isLoggedIn ? <Home /> : <Login />}
               </Route>
-            ) : null}
-            <Route>
-              <NotFound />
-            </Route>
-          </Switch>
-        </Router>
-      </ThemeProvider>
-    </HelmetProvider>
+              {/* 만약 로그인된 유저가 가입페이지를 갈수도있으니.. */}
+              {!isLoggedIn ? (
+                <Route path={routes.signUp}>
+                  <SignUp />
+                </Route>
+              ) : null}
+              <Route>
+                <NotFound />
+              </Route>
+            </Switch>
+          </Router>
+        </ThemeProvider>
+      </HelmetProvider>
+    </ApolloProvider>
   );
 }
 

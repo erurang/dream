@@ -8,7 +8,6 @@ import morgan from "morgan";
 import { graphqlUploadExpress } from "graphql-upload";
 
 import http from "http";
-
 const PORT = process.env.PORT;
 
 const apollo = new ApolloServer({
@@ -61,9 +60,7 @@ const apollo = new ApolloServer({
 const app = express();
 
 app.use(morgan("tiny"));
-app.use("/static", express.static("uploads"));
 app.use(graphqlUploadExpress());
-
 // 아폴로서버에 express서버와 함께 작동하도록 넘김
 apollo.applyMiddleware({ app });
 
@@ -73,5 +70,5 @@ const httpServer = http.createServer(app);
 apollo.installSubscriptionHandlers(httpServer);
 
 httpServer.listen({ port: PORT }, () =>
-  console.log(`server is running ong http:/localhsot:${PORT}`)
+  console.log(`server is running on http://localhost:${PORT}`)
 );
