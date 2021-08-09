@@ -14,6 +14,8 @@ import BottomBox from "../components/auth/BottomBox";
 import PageTitle from "../components/PageTitle";
 import { useForm } from "react-hook-form";
 import FormError from "../components/auth/FormError";
+import { gql, useMutation } from "@apollo/client";
+
 const FacebookLogin = styled.div`
   color: #385285;
   span {
@@ -22,8 +24,18 @@ const FacebookLogin = styled.div`
   }
 `;
 
+const LOGIN_MUTATION = gql`
+  mutation login($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      ok
+      token
+      error
+    }
+  }
+`;
+
 function Login() {
-  const { register, watch, handleSubmit, formState } = useForm({
+  const { register, handleSubmit, formState, getValues, setError } = useForm({
     // 다양한 방법의 유효성검사가있는데
     // onTouched 포커스를 하고잇을때
     // onChagne 값이변할때
@@ -32,16 +44,37 @@ function Login() {
     mode: "onChange",
   });
 
+  const [login, { loading }] = useMutation(LOGIN_MUTATION, {
+    onCompleted: (data) => {
+      // console.log(data)
+      // 우리가 apollo server에 요청한 결과들이 날아옴
+      const {
+        login: { ok, error, token },
+      } = data;
+
+      if (!ok)
+        setError("result", {
+          message: error,
+        });
+    },
+  });
+
   // console.log(watch());
 
   const onSubmitValid = (data) => {
-    // console.log(data);
+    if (loading) return;
+
+    const { username, password } = getValues();
+
+    login({
+      variables: { username, password },
+    });
   };
   const onSubmitInvalid = (data) => {
     // console.log(data, "invalid");
   };
 
-  console.log(formState.isValid);
+  // console.log(formState.isValid);
 
   return (
     <AuthLayout>
@@ -77,7 +110,12 @@ function Login() {
             hasError={Boolean(formState.errors?.password?.message)}
           />
           <FormError message={formState.errors?.password?.message} />
-          <Button type="submit" value="Log in" disabled={!formState.isValid} />
+          <Button
+            type="submit"
+            value={loading ? "Loading..." : "Log in"}
+            disabled={!formState.isValid || loading}
+          />
+          <FormError message={formState.errors?.result?.message} />
         </form>
         <Separator></Separator>
         <FacebookLogin>
