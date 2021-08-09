@@ -15,6 +15,7 @@ import PageTitle from "../components/PageTitle";
 import { useForm } from "react-hook-form";
 import FormError from "../components/auth/FormError";
 import { gql, useMutation } from "@apollo/client";
+import { logUserIn } from "../apollo";
 
 const FacebookLogin = styled.div`
   color: #385285;
@@ -35,7 +36,14 @@ const LOGIN_MUTATION = gql`
 `;
 
 function Login() {
-  const { register, handleSubmit, formState, getValues, setError } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState,
+    getValues,
+    setError,
+    clearErrors,
+  } = useForm({
     // 다양한 방법의 유효성검사가있는데
     // onTouched 포커스를 하고잇을때
     // onChagne 값이변할때
@@ -53,9 +61,13 @@ function Login() {
       } = data;
 
       if (!ok)
-        setError("result", {
+        return setError("result", {
           message: error,
         });
+
+      if (token) {
+        logUserIn(token);
+      }
     },
   });
 
@@ -76,6 +88,8 @@ function Login() {
 
   // console.log(formState.isValid);
 
+  const clearLoginError = () => clearErrors("result");
+
   return (
     <AuthLayout>
       <PageTitle title="Login" />
@@ -92,14 +106,13 @@ function Login() {
                 value: 5,
                 message: "Username should be longer than 5 char",
               },
-              validate: (currentValue) => {
-                currentValue.includes("potato");
-              },
             })}
             hasError={Boolean(formState.errors?.username?.message)}
             name="username"
             type="text"
             placeholder="Username"
+            // onChange와 겹쳐서.. 테스트필요
+            onKeyPress={clearLoginError}
           />
           <FormError message={formState.errors?.username?.message} />
           <Input
@@ -108,6 +121,7 @@ function Login() {
             type="password"
             placeholder="Password"
             hasError={Boolean(formState.errors?.password?.message)}
+            onKeyPress={clearLoginError}
           />
           <FormError message={formState.errors?.password?.message} />
           <Button
