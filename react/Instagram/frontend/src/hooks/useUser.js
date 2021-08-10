@@ -28,7 +28,7 @@ function useUser() {
     }
   }, [data]);
 
-  return;
+  return { data };
 }
 
 export default useUser;
