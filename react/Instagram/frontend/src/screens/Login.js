@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import FormError from "../components/auth/FormError";
 import { gql, useMutation } from "@apollo/client";
 import { logUserIn } from "../apollo";
+import { useLocation } from "react-router-dom";
 
 const FacebookLogin = styled.div`
   color: #385285;
@@ -23,6 +24,10 @@ const FacebookLogin = styled.div`
     margin-left: 10px;
     font-weight: 600;
   }
+`;
+
+const Notification = styled.div`
+  color: #2ecc71;
 `;
 
 const LOGIN_MUTATION = gql`
@@ -36,6 +41,10 @@ const LOGIN_MUTATION = gql`
 `;
 
 function Login() {
+  const location = useLocation();
+  // signup 에서 history push로 보낸 message가 location.state.message 로 저장되있음
+
+  console.log(location);
   const {
     register,
     handleSubmit,
@@ -50,6 +59,10 @@ function Login() {
     // onBlur 인풋창 밖에서 나갓을때(포커스 나갔을떄)
     // 유효성검사하는 방식이 있음.
     mode: "onChange",
+    defaultValues: {
+      username: location?.state?.username || "",
+      password: location?.state?.password || "",
+    },
   });
 
   const [login, { loading }] = useMutation(LOGIN_MUTATION, {
@@ -76,6 +89,8 @@ function Login() {
   const onSubmitValid = (data) => {
     if (loading) return;
 
+    // console.table("data : ", data);
+    // console.table("getValues() : ", getValues());
     const { username, password } = getValues();
 
     login({
@@ -97,11 +112,12 @@ function Login() {
         <div>
           <FontAwesomeIcon icon={faInstagram} size="3x" />
         </div>
+        <Notification>{location?.state?.message}</Notification>
         <form onSubmit={handleSubmit(onSubmitValid, onSubmitInvalid)}>
           <Input
             {...register("username", {
               // error
-              required: "Username Required",
+              required: true,
               minLength: {
                 value: 5,
                 message: "Username should be longer than 5 char",
@@ -116,7 +132,7 @@ function Login() {
           />
           <FormError message={formState.errors?.username?.message} />
           <Input
-            {...register("password", { required: "Password Required" })}
+            {...register("password", { required: true })}
             name="password"
             type="password"
             placeholder="Password"

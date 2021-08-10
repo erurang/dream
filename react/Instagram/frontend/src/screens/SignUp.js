@@ -9,6 +9,7 @@ import AuthLayout from "../components/auth/AuthLayout";
 import BottomBox from "../components/auth/BottomBox";
 import Button from "../components/auth/Button";
 import FormBox from "../components/auth/FormBox";
+import FormError from "../components/auth/FormError";
 import Input from "../components/auth/Input";
 import PageTitle from "../components/PageTitle";
 import { FatLink } from "../components/shared";
@@ -50,24 +51,34 @@ const CREATE_ACCOUNT_MUTATION = gql`
 function SignUp() {
   const history = useHistory();
 
-  const { register, handleSubmit, formState, clearErrors } = useForm({
-    mode: "onChange",
-  });
+  const { register, handleSubmit, formState, clearErrors, getValues } = useForm(
+    {
+      mode: "onChange",
+    }
+  );
 
   const [createAccount, { loading }] = useMutation(CREATE_ACCOUNT_MUTATION, {
     onCompleted: (data) => {
+      // getValues()를 써도 댐
       const {
         createAccount: { ok, error },
       } = data;
 
       if (!ok) return;
 
-      history.push(routes.home);
+      const { username, password } = getValues();
+
+      // 히스토리로 메세지보내기 => location으로 받아옴
+      history.push(routes.home, {
+        message: "Account created. please log in",
+        username,
+        password,
+      });
     },
   });
 
   const onSubmitValid = (data) => {
-    console.log(data);
+    // console.log(data);
     if (loading) return;
 
     const { username, firstName, lastName, password, email } = data;
@@ -82,6 +93,8 @@ function SignUp() {
     });
   };
 
+  // console.log(formState.errors);
+
   return (
     <AuthLayout>
       <PageTitle title="Sign Up" />
@@ -94,11 +107,18 @@ function SignUp() {
         </HeaderContainer>
         <form onSubmit={handleSubmit(onSubmitValid)}>
           <Input
-            {...register("firstName", { required: "First name is required" })}
+            {...register("firstName", {
+              required: true,
+              minLength: {
+                value: 3,
+                message: "firstname shold be longer than 3 char",
+              },
+            })}
             name="firstName"
             type="text"
             placeholder="First Name"
           />
+          <FormError message={formState.errors?.firstName?.message} />
           <Input
             type="text"
             placeholder="Last Name"
@@ -106,19 +126,35 @@ function SignUp() {
             {...register("lastName")}
           />
           <Input
-            {...register("username", { required: "Username is required" })}
+            {...register("username", {
+              required: true,
+              minLength: {
+                value: 5,
+                message: "username shold be longer than 3 char",
+              },
+            })}
             name="username"
             type="text"
             placeholder="Username"
           />
+          <FormError message={formState.errors?.username?.message} />
           <Input
-            {...register("email", { required: "Email is required" })}
+            {...register("email", {
+              required: true,
+              minLength: {
+                value: 5,
+                message: "email should be longer than 5 char'",
+              },
+              validate: (currentValue) =>
+                currentValue.includes("@") ? null : "email include @",
+            })}
             name="email"
             type="text"
             placeholder="Email"
           />
+          <FormError message={formState.errors?.email?.message} />
           <Input
-            {...register("password", { required: "Password is required" })}
+            {...register("password", { required: true })}
             name="password"
             type="password"
             placeholder="Password"
