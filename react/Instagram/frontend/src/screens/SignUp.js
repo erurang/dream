@@ -51,17 +51,15 @@ const CREATE_ACCOUNT_MUTATION = gql`
 function SignUp() {
   const history = useHistory();
 
-  const { register, handleSubmit, formState, clearErrors, getValues } = useForm(
-    {
-      mode: "onChange",
-    }
-  );
+  const { register, handleSubmit, formState, getValues } = useForm({
+    mode: "onChange",
+  });
 
   const [createAccount, { loading }] = useMutation(CREATE_ACCOUNT_MUTATION, {
     onCompleted: (data) => {
       // getValues()를 써도 댐
       const {
-        createAccount: { ok, error },
+        createAccount: { ok },
       } = data;
 
       if (!ok) return;
