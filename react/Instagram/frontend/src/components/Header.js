@@ -5,6 +5,7 @@ import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { isLoggedInVar } from "../apollo";
+import useUser from "../hooks/useUser";
 
 const SHeader = styled.header`
   width: 100%;
@@ -32,6 +33,8 @@ const Icon = styled.span`
 
 function Header() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
+  const loggedInUser = useUser();
+
   return (
     <SHeader>
       <Wrapper>

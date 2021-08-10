@@ -44,7 +44,7 @@ function Login() {
   const location = useLocation();
   // signup 에서 history push로 보낸 message가 location.state.message 로 저장되있음
 
-  console.log(location);
+  // console.log(location);
   const {
     register,
     handleSubmit,
