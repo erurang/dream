@@ -83,23 +83,26 @@ function Photo({ id, user, file, isLiked, likes }) {
     } = result;
 
     if (ok) {
+      const fragmentId = `Photo:${id}`;
+      const fragment = gql`
+        # 형식
+        # frgament 아무이름 on Type이름 : {
+
+        # }
+        fragment isLiked on Photo {
+          # isLike를 수정할거야
+          isLiked
+          likes
+        }
+      `;
+
       cache.writeFragment({
         // apollo cache에 있는 형식과 같이 적어줌
         // 어떤 id를 업데이트할거냐
         // photo : id 를 업데이트한다
-        id: `Photo:${id}`,
+        id: fragmentId,
         // cache에서 내가 원하는 object의 일부분을 수정할것인가?
-        fragment: gql`
-          # 형식
-          # frgament 아무이름 on Type이름 : {
-
-          # }
-          fragment isLiked on Photo {
-            # isLike를 수정할거야
-            isLiked
-            likes
-          }
-        `,
+        fragment,
         // 캐시에 어떤걸 쓸거야 // 캐시가 수정되면 prisma도 수정됨
         data: {
           isLiked: !isLiked,
