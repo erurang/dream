@@ -46,7 +46,7 @@ export default {
       if (!loggedInUser) return false;
 
       const exists = await client.user.count({
-        where: { username: loggedInUser.id, following: { some: { id } } },
+        where: { username: loggedInUser.username, following: { some: { id } } },
       });
 
       return Boolean(exists);

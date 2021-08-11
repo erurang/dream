@@ -48,7 +48,6 @@ export default {
         },
       }),
     photos: ({ id }, { page }) => {
-      console.log(page);
       return client.hashtag
         .findUnique({
           where: {
