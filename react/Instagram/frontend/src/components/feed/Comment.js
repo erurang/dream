@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { FatText } from "../shared";
 import { Link } from "react-router-dom";
+import { gql, useMutation } from "@apollo/client";
 
 const CommentContainer = styled.div`
   margin-bottom: 7px;
@@ -18,13 +19,45 @@ const CommentCaption = styled.span`
   }
 `;
 
-function Comment({ author, caption }) {
-  // const cleanedCaption = sanitizeHtml();
-  // 이방법도 좋지만 우리는 html을 링크로 넘기는것이기때문에..
-  // 리액트에서 컴포넌트를 넘길수가없음. 왜냐 html만 파싱하니까
-  // 이런방법도 있따는건 알아두면댐
-  // caption.replace(/#[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|\w]+/g, "<mark>$&</mark>"),
-  // { allowedTags: ["mark"] }
+const DELETE_COMMENT_MUTATION = gql`
+  mutation deleteComment($id: Int!) {
+    deleteComment(id: $id) {
+      ok
+    }
+  }
+`;
+
+function Comment({ author, caption, id, isMe, photoId }) {
+  const updateDeleteComment = (cache, result) => {
+    const {
+      data: {
+        deleteComment: { ok },
+      },
+    } = result;
+
+    if (ok) {
+      cache.evict({ id: `Comment:${id}` });
+      cache.modify({
+        id: `Photo:${photoId}`,
+        fields: {
+          commentsNumber(prev) {
+            return prev - 1;
+          },
+        },
+      });
+    }
+  };
+
+  const [deleteCommentMutation] = useMutation(DELETE_COMMENT_MUTATION, {
+    variables: {
+      id,
+    },
+    update: updateDeleteComment,
+  });
+
+  const onDeleteClick = () => {
+    deleteCommentMutation();
+  };
 
   return (
     <CommentContainer>
@@ -42,6 +75,7 @@ function Comment({ author, caption }) {
           )
         )}
       </CommentCaption>
+      {isMe ? <button onClick={onDeleteClick}>X</button> : null}
     </CommentContainer>
   );
 }

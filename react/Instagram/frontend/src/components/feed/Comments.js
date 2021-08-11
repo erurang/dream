@@ -94,8 +94,11 @@ function Comments({ author, caption, commentsNumber, comments, photoId }) {
       {comments?.map((comment) => (
         <Comment
           key={comment.id}
+          id={comment.id}
+          photoId={photoId}
           author={comment.user.username}
           caption={comment.comment}
+          isMe={comment.isMe}
         />
       ))}
       <div>
