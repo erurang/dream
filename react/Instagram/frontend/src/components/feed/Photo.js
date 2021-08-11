@@ -71,7 +71,33 @@ const Likes = styled(FatText)`
   display: block;
 `;
 
-function Photo({ id, user, file, isLiked, likes }) {
+const Comments = styled.div`
+  margin-top: 30px;
+`;
+const Comment = styled.div``;
+const CommentCaption = styled.span`
+  margin-left: 10px;
+`;
+
+const CommentCount = styled.span`
+  opacity: 0.7;
+  font-size: 10px;
+  margin: 10px 0px;
+  display: block;
+  font-weight: 600;
+`;
+
+function Photo({
+  id,
+  user,
+  file,
+  isLiked,
+  likes,
+  caption,
+  commentsNumber,
+  comments,
+}) {
+  console.log(comments);
   // 1번째 인자는 cache는 아폴로의 캐시, 2번째 인자는 백엔드에서 넘어온 데이터,
   const updateToggleLike = (cache, result) => {
     // console.log(cache, result);
@@ -152,6 +178,13 @@ function Photo({ id, user, file, isLiked, likes }) {
           </div>
         </PhotoActions>
         <Likes>{`좋아요 ${likes}`}</Likes>
+        <Comments>
+          <Comment>
+            <FatText>{user.username}</FatText>
+            <CommentCaption>{caption}</CommentCaption>
+          </Comment>
+          <CommentCount>{commentsNumber}댓글</CommentCount>
+        </Comments>
       </PhotoData>
     </PhotoContainer>
   );

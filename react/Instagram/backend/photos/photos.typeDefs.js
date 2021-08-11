@@ -12,7 +12,8 @@ export default gql`
     # computed
     likes: Int!
     isMe: Boolean!
-    comments: Int!
+    commentsNumber: Int!
+    comments: [Comment]
     isLiked: Boolean!
   }
 
