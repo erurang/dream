@@ -82,7 +82,7 @@ function Photo({
   commentsNumber,
   comments,
 }) {
-  console.log(comments);
+  // console.log(comments);
   // 1번째 인자는 cache는 아폴로의 캐시, 2번째 인자는 백엔드에서 넘어온 데이터,
   const updateToggleLike = (cache, result) => {
     // console.log(cache, result);
