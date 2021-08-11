@@ -180,6 +180,7 @@ function Photo({
         </PhotoActions>
         <Likes>{`좋아요 ${likes}`}</Likes>
         <Comments
+          photoId={id}
           author={user.username}
           caption={caption}
           comments={comments}

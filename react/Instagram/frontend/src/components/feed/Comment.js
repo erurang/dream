@@ -1,7 +1,8 @@
+import React from "react";
 import styled from "styled-components";
 import { FatText } from "../shared";
 import { Link } from "react-router-dom";
-import React from "react";
+
 const CommentContainer = styled.div``;
 const CommentCaption = styled.span`
   margin-left: 10px;
