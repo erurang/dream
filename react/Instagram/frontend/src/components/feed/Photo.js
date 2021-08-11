@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import Avatar from "../Avatar";
 import { gql, useMutation } from "@apollo/client";
-import { FEED_QUERY } from "../../screens/Home";
 
 const LIKE_PHOTO_MUTATION = gql`
   mutation likePhoto($id: Int!) {
@@ -73,6 +72,43 @@ const Likes = styled(FatText)`
 `;
 
 function Photo({ id, user, file, isLiked, likes }) {
+  // 1번째 인자는 cache는 아폴로의 캐시, 2번째 인자는 백엔드에서 넘어온 데이터,
+  const updateToggleLike = (cache, result) => {
+    // console.log(cache, result);
+
+    const {
+      data: {
+        likePhoto: { ok },
+      },
+    } = result;
+
+    if (ok) {
+      cache.writeFragment({
+        // apollo cache에 있는 형식과 같이 적어줌
+        // 어떤 id를 업데이트할거냐
+        // photo : id 를 업데이트한다
+        id: `Photo:${id}`,
+        // cache에서 내가 원하는 object의 일부분을 수정할것인가?
+        fragment: gql`
+          # 형식
+          # frgament 아무이름 on Type이름 : {
+
+          # }
+          fragment isLiked on Photo {
+            # isLike를 수정할거야
+            isLiked
+            likes
+          }
+        `,
+        // 캐시에 어떤걸 쓸거야 // 캐시가 수정되면 prisma도 수정됨
+        data: {
+          isLiked: !isLiked,
+          likes: isLiked ? likes - 1 : likes + 1,
+        },
+      });
+    }
+  };
+
   const [likePhotoMutation, { loading }] = useMutation(LIKE_PHOTO_MUTATION, {
     variables: {
       id,
@@ -80,7 +116,9 @@ function Photo({ id, user, file, isLiked, likes }) {
     // likePhotoMutation 이 실행된후에 다시 리펫치(다시 요청)하는 방식인데
     // 이것을 하면 캐시를 건드리는게아닌 다시 데이터를 받아와서 처리하는것임
     // 정말 적은 쿼리라면 ㄱㅊ겠지만 많은 요청을 받는 FEED_QUERY의 경우 이점이 없음.
-    refetchQueries: [{ query: FEED_QUERY }],
+    // refetchQueries: [{ query: FEED_QUERY }],
+    // 백엔드에서 데이터를 받아서 아폴로캐시에 직접 연결해주는 update
+    update: updateToggleLike,
   });
 
   return (
