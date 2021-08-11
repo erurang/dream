@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import Avatar from "../Avatar";
 import { gql, useMutation } from "@apollo/client";
+import Comments from "./Comments";
 
 const LIKE_PHOTO_MUTATION = gql`
   mutation likePhoto($id: Int!) {
@@ -69,22 +70,6 @@ const PhotoAction = styled.div`
 const Likes = styled(FatText)`
   margin-top: 15px;
   display: block;
-`;
-
-const Comments = styled.div`
-  margin-top: 30px;
-`;
-const Comment = styled.div``;
-const CommentCaption = styled.span`
-  margin-left: 10px;
-`;
-
-const CommentCount = styled.span`
-  opacity: 0.7;
-  font-size: 10px;
-  margin: 10px 0px;
-  display: block;
-  font-weight: 600;
 `;
 
 function Photo({
@@ -178,13 +163,12 @@ function Photo({
           </div>
         </PhotoActions>
         <Likes>{`좋아요 ${likes}`}</Likes>
-        <Comments>
-          <Comment>
-            <FatText>{user.username}</FatText>
-            <CommentCaption>{caption}</CommentCaption>
-          </Comment>
-          <CommentCount>{commentsNumber}댓글</CommentCount>
-        </Comments>
+        <Comments
+          author={user.username}
+          caption={caption}
+          comments={comments}
+          commentsNumber={commentsNumber}
+        />
       </PhotoData>
     </PhotoContainer>
   );

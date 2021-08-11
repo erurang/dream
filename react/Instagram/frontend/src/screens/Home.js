@@ -22,6 +22,7 @@ const FEED_QUERY = gql`
         comment
         user {
           username
+          avatar
         }
       }
       createdAt
