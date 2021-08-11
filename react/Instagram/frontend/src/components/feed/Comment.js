@@ -61,7 +61,9 @@ function Comment({ author, caption, id, isMe, photoId }) {
 
   return (
     <CommentContainer>
-      <FatText>{author}</FatText>
+      <Link to={`/users/${author}`}>
+        <FatText>{author}</FatText>
+      </Link>
       <CommentCaption>
         {caption.split(" ").map((word, i) =>
           /#[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|\w]+/.test(word) ? (
