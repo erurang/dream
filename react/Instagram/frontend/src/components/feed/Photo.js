@@ -94,30 +94,46 @@ function Photo({
     } = result;
 
     if (ok) {
-      const fragmentId = `Photo:${id}`;
-      const fragment = gql`
-        # 형식
-        # frgament 아무이름 on Type이름 : {
+      const photoId = `Photo:${id}`;
+      // 캐시를 업데이트하는
+      // 방법1
+      // const fragment = gql`
+      //   # 형식
+      //   # frgament 아무이름 on Type이름 : {
 
-        # }
-        fragment isLiked on Photo {
-          # isLike를 수정할거야
-          isLiked
-          likes
-        }
-      `;
+      //   # }
+      //   fragment isLiked on Photo {
+      //     # isLike를 수정할거야
+      //     isLiked
+      //     likes
+      //   }
+      // `;
 
-      cache.writeFragment({
-        // apollo cache에 있는 형식과 같이 적어줌
-        // 어떤 id를 업데이트할거냐
-        // photo : id 를 업데이트한다
-        id: fragmentId,
-        // cache에서 내가 원하는 object의 일부분을 수정할것인가?
-        fragment,
-        // 캐시에 어떤걸 쓸거야 // 캐시가 수정되면 prisma도 수정됨
-        data: {
-          isLiked: !isLiked,
-          likes: isLiked ? likes - 1 : likes + 1,
+      // cache.writeFragment({
+      //   // apollo cache에 있는 형식과 같이 적어줌
+      //   // 어떤 id를 업데이트할거냐
+      //   // photo : id 를 업데이트한다
+      //   id: fragmentId,
+      //   // cache에서 내가 원하는 object의 일부분을 수정할것인가?
+      //   fragment,
+      //   // 캐시에 어떤걸 쓸거야 // 캐시가 수정되면 prisma도 수정됨
+      //   data: {
+      //     isLiked: !isLiked,
+      //     likes: isLiked ? likes - 1 : likes + 1,
+      //   },
+      // });
+      //방법 2
+
+      cache.modify({
+        id: photoId,
+        fields: {
+          isLiked(cachedValue) {
+            return !cachedValue;
+          },
+          likes(prev) {
+            if (isLiked) return prev - 1;
+            else return prev + 1;
+          },
         },
       });
     }
