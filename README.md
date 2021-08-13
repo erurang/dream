@@ -31,4 +31,7 @@
     +-- basic : 리액트의 기본을 익히는 TodoList
     +-- instagram : 인스타그램클론
 +-- typescript
+    +-- 1-type : 타입스크립트의 기본 타입정의 공부
+    +-- 2-type-project-quiz : 1에서 배운것들로 복습해보는 간단한 퀴즈
+    
 ```
