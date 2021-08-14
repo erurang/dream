@@ -5,7 +5,12 @@
 
   interface CoffeeMaker {
     makeCoffee(shots: number): CoffeeCup;
-    fillCoffeeBeans(beans: number);
+  }
+
+  interface CommercialCoffeeMaker {
+    makeCoffee(shots: number): CoffeeCup;
+    fillCoffeeBeans(beans: number): void;
+    clean(): void;
   }
 
   type CoffeeCup = {
@@ -13,7 +18,7 @@
     hasMilk: boolean;
   };
 
-  class CoffeeMachine implements CoffeeMaker {
+  class CoffeeMachine implements CoffeeMaker, CommercialCoffeeMaker {
     private static BEANS_GRAMM_PER_SHOT: number = 7;
     private coffeeBeans: number = 0;
 
@@ -29,6 +34,10 @@
       if (beans < 0) throw new Error("0이하는 안돼");
 
       this.coffeeBeans += beans;
+    }
+
+    clean() {
+      console.log("기계닦는중..");
     }
 
     private grindBeans(shots: number) {
@@ -62,7 +71,7 @@
 
   // 클래스를 생성한후에 maker의 타입을 interface로 지정해주면
   // 우리는 interface안에 지정된 것만 접근이 가능하다
-  const maker: CoffeeMaker = new CoffeeMachine(30);
+  const maker: CommercialCoffeeMaker = new CoffeeMachine(30);
 
   // interface에 makeCoffee만 선언해두어서 fillCoffee는 오류가 뜨는걸 볼수있다.
   // maker.fillCoffeeBeans(32);
