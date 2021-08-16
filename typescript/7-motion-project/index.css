@@ -1,0 +1,13 @@
+.wrap {
+  width: 100vh;
+  margin: 0 auto;
+}
+
+button {
+  cursor: pointer;
+}
+
+.inputBox {
+  display: flex;
+  flex-direction: column;
+}
