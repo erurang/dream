@@ -4,34 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./style/index.css">
+    <script type="module" src="./build/index.js" defer></script>
 </head>
 <body>
-    <div class="wrap">
-        <div class="inputBox">
-            <form>
-                <input type="text">
-                <input type="text">
-            </form>
-        </div>
-        <div class="motionBox">
-            <h1>MOTION</h1>
-            <nav class="BtnBox">
-                <button class="img">Image</button>
-                <button class="video">Video</button>
-                <button class="note">Note</button>
-                <button class="task">Task</button>
-            </nav>
-        </div>
-        <div>
-            <ul>
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
+    <div class="app">
+        <header class="banner">
+            <h1 class="banner__title">Motion</h1>
+            <ul class="control-panel">
+                <li><button id="new-image" class="create-button">Image</button></li>
+                <li><button id="new-video" class="create-button">Video</button></li>
+                <li><button id="new-note" class="create-button">Note</button></li>
+                <li><button id="new-todo" class="create-button">ToDo</button></li>
             </ul>
-        </div>
+        </header>
+        <main class="document"></main>
+        <footer class="footer">
+            <p></p>
+        </footer>
     </div>
-    <script src="build/index.js"></script>
 </body>
 </html>

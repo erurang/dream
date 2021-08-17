@@ -1,6 +1,8 @@
-"use strict";
-var Btn = document.querySelector(".BtnBox");
-Btn === null || Btn === void 0 ? void 0 : Btn.addEventListener("click", function (e) {
-    var target = e.target;
-    console.log(target.className);
-});
+import { PageComponent } from "./components/page/page.js";
+class App {
+    constructor(appRoot) {
+        this.page = new PageComponent();
+        this.page.attachTo(appRoot);
+    }
+}
+new App(document.querySelector(".document"));
