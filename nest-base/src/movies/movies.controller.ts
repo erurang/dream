@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Delete,
   Get,
@@ -6,6 +7,7 @@ import {
   Patch,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 
 // 2. localhost:3000 접속! 오류뜨네.. 왜냐? controller에 'movies'는 /movies 로 만들어짐 즉 url의 엔트리포인트임
@@ -17,8 +19,16 @@ export class MoviesController {
     return 'this will return all movies';
   }
 
+  // query에서 값 가져오기
+  @Get('search')
+  // 예시 get 메소드 http://localhost:3000/movies/search?year=11
+  // searchingYear에는 11이 들어감
+  search(@Query('year') searchingYear: string) {
+    return `we are searching for a movie with a title : ${searchingYear}`;
+  }
+
   // 동적 url 생성은 : 로
-  @Get('/:id')
+  @Get(':id')
   // useParams() 처럼 url을 가져올려면 우리가 nestjs에 요청을 해야함. => @Param(변수명) 'id'라는 파라메터를 id의 변수에 저장하고싶다.
   // get에 적힌 변수명과 param안의 변수명이 같아야함.
   getOne(@Param('id') movieId: string) {
@@ -26,19 +36,24 @@ export class MoviesController {
   }
 
   @Post()
-  create() {
-    return `this will create a movie`;
+  // post요청으로 날라온 req.body를 보고싶다면 @Body()사용
+  create(@Body() movieData) {
+    console.log(movieData);
+    return movieData;
   }
 
-  @Delete('/:id')
+  @Delete(':id')
   remove(@Param('id') movieId: string) {
     return `this will delete a movieId : ${movieId}`;
   }
 
   // update방식중 put은 모든 리소스를 업데이트함
   // patch는 부분적인 리소스를 업데이트함
-  @Patch('/:id')
-  path(@Param('id') movieId: string) {
-    return `this will patch a movieId : ${movieId}`;
+  @Patch(':id')
+  path(@Param('id') movieId: string, @Body() updateData) {
+    return {
+      updatedMovie: movieId,
+      ...updateData,
+    };
   }
 }
