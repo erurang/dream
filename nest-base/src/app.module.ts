@@ -1,12 +1,10 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { MoviesController } from './movies/movies.controller';
 
 @Module({
   imports: [],
-  // url을 가져오고 함수를 실행함 express의 라우터역할임
-  controllers: [AppController],
-  //
-  providers: [AppService],
+  // nest g co 로 컨트롤러 파일을 자동생성했는데 여기에 자동추가된걸 볼수있음
+  controllers: [MoviesController],
+  providers: [],
 })
 export class AppModule {}
