@@ -9,6 +9,7 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { CreateMovieDto } from './dto/create-movie.dto';
 import { Movie } from './entities/movie.entity';
 import { MoviesService } from './movies.service';
 
@@ -37,20 +38,20 @@ export class MoviesController {
   @Get(':id')
   // useParams() 처럼 url을 가져올려면 우리가 nestjs에 요청을 해야함. => @Param(변수명) 'id'라는 파라메터를 id의 변수에 저장하고싶다.
   // get에 적힌 변수명과 param안의 변수명이 같아야함.
-  getOne(@Param('id') movieId: string): Movie {
+  getOne(@Param('id') movieId: number): Movie {
     return this.moviesService.getOne(movieId);
     // return `this will return one movieId: ${movieId}`;
   }
 
   @Post()
   // post요청으로 날라온 req.body를 보고싶다면 @Body()사용
-  create(@Body() movieData) {
+  create(@Body() movieData: CreateMovieDto) {
     return this.moviesService.create(movieData);
     // return movieData;
   }
 
   @Delete(':id')
-  remove(@Param('id') movieId: string) {
+  remove(@Param('id') movieId: number) {
     return this.moviesService.remove(movieId);
     // return `this will delete a movieId : ${movieId}`;
   }
@@ -58,7 +59,7 @@ export class MoviesController {
   // update방식중 put은 모든 리소스를 업데이트함
   // patch는 부분적인 리소스를 업데이트함
   @Patch(':id')
-  patch(@Param('id') movieId: string, @Body() updateData) {
+  patch(@Param('id') movieId: number, @Body() updateData) {
     return this.moviesService.update(movieId, updateData);
   }
 }

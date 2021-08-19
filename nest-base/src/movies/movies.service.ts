@@ -2,6 +2,7 @@
 // nest g s 로 자동생성됨
 // 가짜 데이터베이스가 존재한다는 가정하에 이렇게 만듬.
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { CreateMovieDto } from './dto/create-movie.dto';
 import { Movie } from './entities/movie.entity';
 
 @Injectable()
@@ -13,7 +14,7 @@ export class MoviesService {
     return this.movies;
   }
 
-  getOne(id: string): Movie {
+  getOne(id: number): Movie {
     const movie = this.movies.find((movie) => movie.id === +id);
 
     // 예외처리
@@ -21,20 +22,20 @@ export class MoviesService {
     return this.movies.find((movie) => movie.id === +id);
   }
 
-  remove(id: string): boolean {
+  remove(id: number): boolean {
     this.getOne(id);
-    this.movies = this.movies.filter((movie) => movie.id !== +id);
+    this.movies = this.movies.filter((movie) => movie.id !== id);
     return true;
   }
 
-  create(movieData) {
+  create(movieData: CreateMovieDto) {
     this.movies.push({
       id: this.movies.length + 1,
       ...movieData,
     });
   }
 
-  update(id: string, updateData) {
+  update(id: number, updateData) {
     const movie = this.getOne(id);
     this.remove(id);
     this.movies.push({ ...movie, ...updateData });
