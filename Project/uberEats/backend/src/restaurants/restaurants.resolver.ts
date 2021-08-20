@@ -1,16 +1,11 @@
-import { Query, Resolver } from '@nestjs/graphql';
+import { Args, Query, Resolver } from '@nestjs/graphql';
 import { Restaurant } from './entities/restaurant.entity';
 
-@Resolver((of) => Restaurant) // restaurant.entity.ts를 구현하는 리졸버라는뜻
+@Resolver() // restaurant.entity.ts를 구현하는 리졸버라는뜻
 export class RestaurantsResolver {
-  @Query((returns) => Boolean) // graphql을 위한 예상리턴값
-  isPizzaGood(): Boolean {
-    //ts를 위한 예상리턴값
-    return true;
-  }
-
-  @Query((returns) => Restaurant)
-  myRestaurant() {
-    return true;
+  @Query(() => [Restaurant]) // entity의 restaurant가 typedef가 되어..
+  // 인자요청하기
+  myRestaurants(@Args('name') name: string): Restaurant[] {
+    return [];
   }
 }

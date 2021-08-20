@@ -8,6 +8,5 @@ type Restaurant {
 }
 
 type Query {
-  isPizzaGood: Boolean!
-  myRestaurant: Restaurant!
+  myRestaurants(name: String!): [Restaurant!]!
 }
