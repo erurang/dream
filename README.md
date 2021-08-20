@@ -1,8 +1,16 @@
 ## JS 폴더구성
 
 ```
++-- Project
+    +-- Instagram : 인스타그램 클론코딩
+    +-- twitterClone : 트위터 클론코딩
+    +-- uberEats : 우버이츠 클론코딩 
+
 +-- algorithm
-    +-- 섹션1~10 : Js를 이용한 자바스크립트 문제 풀이
+    +-- 인프런
+        +-- 섹션1~10 : Js를 이용한 자바스크립트 문제 풀이
+
++-- nest-base : express 프레임워크 nest.js의 기본 익히기
 
 +-- javascript
     +--
@@ -29,7 +37,6 @@
         
 +-- react
     +-- basic : 리액트의 기본을 익히는 TodoList
-    +-- instagram : 인스타그램클론
 
 +-- typescript
     +-- 1-type : 타입스크립트의 기본 타입정의 공부
