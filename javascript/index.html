@@ -4,53 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="./build/coordinates.js" defer></script>
-    <style>
-        .box {
-            width: 200px;
-            height: 200px;
-            border: 1px solid black;
-            background-color: beige;
-            margin-bottom: 5px;
-        }
-        body {
-            background-color: black;
-        }
-
-        .box_event {
-            background-color: blue
-        }
-        .buttonBox {
-            display: flex;
-            position: fixed;
-            width: 100px;
-            height: 100px;
-            right: 0;
-        }
-    </style>
+    <script src="./build/load.js" defer></script> 
+    <!-- async는 자바스크립트가 먼저 설치된후 실행됨, html이 도중에 멈추기때문에 자바스크립트가 queryselector가 작동하지않을수있음 -->
+    <!-- defer는 html이 파싱되면서 js를 같이 설치하고 파싱이 끝난후에 js를 실행함 -->
+    <!-- defer is gooooood! -->
 </head>
 <body>
-    <div class="root">
-        <div class="buttonBox">
-            <button class="goto">100위치로 이동</button>
-            <button class="move">100씩 이동</button>
-            <button class="gotoEvent">이벤트박스로이동</button>
-        </div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box box_event"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-    </div>
+    <script>
+        // html만 다 로드되면 호출됨
+        window.addEventListener("DOMContentLoaded", () => {
+            console.log("DOMContentLoaded");
+        })
+
+        // 폰트,이미지,css.. 다운로드완료되면 호출됨
+        window.addEventListener("load", () => {
+            console.log('load');
+        })
+    </script>
 </body>
 </html>
