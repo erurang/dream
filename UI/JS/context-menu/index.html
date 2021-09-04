@@ -26,15 +26,31 @@
             display: block;
         }
 
+        .hide_box {
+            display: none;
+            position: absolute;
+            bottom: 0;
+            background: white;
+            border: 1px solid black;
+            width: 60%;
+            top: calc(100%-10px);
+            padding: 10px;
+            right: 10px;
+        }
+
         h1 {
             font-size: 15px;
         }
 
-        .button {
-            display: none;
+        .box:after {
+            content: "커서온";
             position: absolute;
             right: 0;
             bottom: 0;
+        }
+
+        .box:hover .box::after {
+            content: "커서아웃";
         }
     </style>
 </head>
@@ -45,61 +61,81 @@
             <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio nobis quas earum deserunt. Tenetur
                 esse non amet asperiores vitae nisi praesentium ad quasi numquam, perferendis ab obcaecati maxime modi
                 molestiae.</h1>
-            <button class="button">커서 온</button>
+            <div class="hide_box">
+                첫번째 박스
+            </div>
         </div>
         <div class="box">
             <h1>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam quod ipsam illo praesentium iusto
                 esse, eaque maiores earum facere non, sunt corporis ut veritatis tempora aut officia ratione voluptatum
                 cum.</h1>
-            <button class="button">커서 온</button>
+            <div class="hide_box">
+                두번째 박스
+            </div>
         </div>
         <div class="box">
             <h1>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam quod ipsam illo praesentium iusto
                 esse, eaque maiores earum facere non, sunt corporis ut veritatis tempora aut officia ratione voluptatum
                 cum.</h1>
-            <button class="button">커서 온</button>
+            <div class="hide_box">
+                세번째 박스
+            </div>
         </div>
         <div class="box">
             <h1>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam quod ipsam illo praesentium iusto
                 esse, eaque maiores earum facere non, sunt corporis ut veritatis tempora aut officia ratione voluptatum
                 cum.</h1>
-            <button class="button">커서 온</button>
+            <div class="hide_box">
+                네번째 박스
+            </div>
         </div>
         <div class="box">
             <h1>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam quod ipsam illo praesentium iusto
                 esse, eaque maiores earum facere non, sunt corporis ut veritatis tempora aut officia ratione voluptatum
                 cum.</h1>
-            <button class="button">커서 온</button>
+            <div class="hide_box">
+                다섯번째 박스
+            </div>
         </div>
         <div class="box">
             <h1>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam quod ipsam illo praesentium iusto
                 esse, eaque maiores earum facere non, sunt corporis ut veritatis tempora aut officia ratione voluptatum
                 cum.</h1>
-            <button class="button">커서 온</button>
+            <div class="hide_box">
+                여섯번째 박스
+            </div>
         </div>
         <div class="box">
             <h1>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam quod ipsam illo praesentium iusto
                 esse, eaque maiores earum facere non, sunt corporis ut veritatis tempora aut officia ratione voluptatum
                 cum.</h1>
-            <button class="button">커서 온</button>
+            <div class="hide_box">
+                일곱번째 박스
+            </div>
         </div>
         <div class="box">
             <h1>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam quod ipsam illo praesentium iusto
                 esse, eaque maiores earum facere non, sunt corporis ut veritatis tempora aut officia ratione voluptatum
                 cum.</h1>
-            <button class="button">커서 온</button>
+            <div class="hide_box">
+                여덟번째 박스
+            </div>
         </div>
         <div class="box">
             <h1>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam quod ipsam illo praesentium iusto
                 esse, eaque maiores earum facere non, sunt corporis ut veritatis tempora aut officia ratione voluptatum
                 cum.</h1>
-            <button class="button">커서 온</button>
+            <div class="hide_box">
+                아홉번째 박스
+            </div>
         </div>
         <div class="box">
             <h1>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam quod ipsam illo praesentium iusto
                 esse, eaque maiores earum facere non, sunt corporis ut veritatis tempora aut officia ratione voluptatum
                 cum.</h1>
-            <button class="button">커서 온</button>
+            <div class="hide_box">
+                열번째 박스
+            </div>
         </div>
     </div>
 </body>
